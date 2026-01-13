@@ -11,6 +11,10 @@ A standalone Nix flake for [JackTrip](https://github.com/jacktrip/jacktrip) - a 
 - **Reproducible builds**: Fetches source from upstream with pinned hashes
 - **Development shell**: Includes all necessary tools for development
 
+## Why?
+
+I created this flake because the [nixpkgs provided flake](https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/by-name/ja/jacktrip) is not compatible with nix-darwin. Just a temporary solution while I test this flake to eventually contribute to nixpkgs.
+
 ## Quick Start
 
 ### Run JackTrip directly (no installation)
