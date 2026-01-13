@@ -19,22 +19,28 @@
         system: f nixpkgs.legacyPackages.${system}
       );
   in {
-    packages = forAllSystems (pkgs: {
+    packages = forAllSystems (pkgs: let
+      system = pkgs.stdenv.hostPlatform.system;
+    in {
       jacktrip = import ./default.nix {inherit pkgs;};
-      default = self.packages.${pkgs.system}.jacktrip;
+      default = self.packages.${system}.jacktrip;
     });
 
-    apps = forAllSystems (pkgs: {
+    apps = forAllSystems (pkgs: let
+      system = pkgs.stdenv.hostPlatform.system;
+    in {
       jacktrip = {
         type = "app";
-        program = "${self.packages.${pkgs.system}.jacktrip}/bin/jacktrip";
+        program = "${self.packages.${system}.jacktrip}/bin/jacktrip";
       };
-      default = self.apps.${pkgs.system}.jacktrip;
+      default = self.apps.${system}.jacktrip;
     });
 
-    devShells = forAllSystems (pkgs: {
+    devShells = forAllSystems (pkgs: let
+      system = pkgs.stdenv.hostPlatform.system;
+    in {
       default = pkgs.mkShell {
-        inputsFrom = [self.packages.${pkgs.system}.jacktrip];
+        inputsFrom = [self.packages.${system}.jacktrip];
 
         packages = with pkgs;
           [
